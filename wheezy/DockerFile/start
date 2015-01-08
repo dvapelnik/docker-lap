@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [[ -d /var/lock/apache2 ]]; then
+    chown donkey:donkey /var/lock/apache2
+fi
+
+/usr/sbin/service memcached restart
+/usr/sbin/service apache2 restart
+
+while [[ -z '' ]]; do
+    sleep 1
+done
