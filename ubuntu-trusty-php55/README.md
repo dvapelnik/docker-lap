@@ -1,6 +1,6 @@
 #Readme
 
-This is Docker Ubuntu based image for web development with php5.4.36
+This is Docker Ubuntu based image for web development with php5.5.9
 
 ##Usage
 
@@ -23,14 +23,14 @@ ser -i "s/-u 1000/-u `id -u`/g" Dockerfile
 Build image firstly
 
 ```bash
-sudo docker build --rm -t `whoami`/debian:wheezy.php54 .
+sudo docker build --rm -t `whoami`/ubuntu:trusty.php55 .
 ```
 
 Start your container with share local folder
 
 ```bash
 echo "<?php phpinfo(); ?>" > /tmp/index.php
-sudo docker run -d --name web -p 80:80 -v /tmp/index.php:/var/www/index.php jdoe/debian:wheezy.php54
+sudo docker run -d --name web -p 80:80 -v /tmp/index.php:/var/www/index.php jdoe/ubuntu:trusty.php55
 ```
 
 And browse: [http://localhost/index.php](http://localhost/index.php). You must see phpinfo() as result.#ReadMe
