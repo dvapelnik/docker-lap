@@ -1,8 +1,0 @@
-#!/bin/bash
-
-/usr/sbin/service memcached restart
-/usr/sbin/service apache2 restart
-
-while [[ -z '' ]]; do
-    sleep 1
-done
