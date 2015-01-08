@@ -13,6 +13,7 @@ RUN groupadd -g 1000 donkey \
     apt-get install -y memcached \
     && \
     apt-get install -y apache2 \
+    && \
     apt-get install -y \
         php5 \
         php-apc \
@@ -38,61 +39,22 @@ RUN groupadd -g 1000 donkey \
         php5-xmlrpc \
         php5-xdebug \
     && \
-    apt-get install -y php5-dev build-essential \
-    && \
-    pecl install xdebug \
-    && \
-    apt-get autoremove -y \
-        autoconf \
-        automake \
-        autotools-dev \
-        binutils \
-        build-essential \
-        bzip2 \
-        cpp \
-        cpp-4.7 \
-        dpkg-dev \
-        fakeroot \
-        g++ \
-        g++-4.7 \
-        gcc \
-        gcc-4.7 \
-        libalgorithm-diff-perl \
-        libalgorithm-diff-xs-perl \
-        libalgorithm-merge-perl \
-        libc-dev-bin \
-        libc6-dev \
-        libdpkg-perl \
-        libfile-fcntllock-perl \
-        libgmp10 \
-        libitm1 \
-        libltdl-dev \
-        libmpc2 \
-        libmpfr4 \
-        libquadmath0 \
-        libssl-dev \
-        libssl-doc \
-        libstdc++6-4.7-dev \
-        libtimedate-perl \
-        libtool \
-        linux-libc-dev \
-        m4 \
-        make \
-        manpages \
-        manpages-dev \
-        patch \
-        php5-dev \
-        shtool \
-        zlib1g-dev \
-    && \
     apt-get autoremove -y && apt-get clean \
     && \
-    ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
+    ln -sf ../mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
+    ln -sf ../sites-available/000-default.conf /etc/apache2/sites-enabled/000-default && \
+    rm -f /etc/apache2/sites-enabled/000-default.conf \
     && \
+    rm -rf /var/www/html && \
     sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=donkey/' /etc/apache2/envvars && \
     sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=donkey/' /etc/apache2/envvars && \
+    sed -i 's/\/var\/www\/html/\/var\/www/' /etc/apache2/sites-available/000-default.conf && \
+    sed -i 's/IncludeOptional conf\-enabled\/\*\.conf/IncludeOptional conf\-enabled\/\*/' /etc/apache2/apache2.conf && \
+    sed -i 's/IncludeOptional sites\-enabled\/\*\.conf/IncludeOptional sites\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php5/apache2/php.ini && \
     sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini
+
+EXPOSE 80
 
 ADD 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
 ADD start /start
