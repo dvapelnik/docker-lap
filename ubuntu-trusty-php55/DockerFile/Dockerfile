@@ -1,8 +1,10 @@
-# VERSION                   0.0.1
+# VERSION                   0.1.0
 
-FROM ubuntu:trusty
+FROM ubuntu-debootstrap:trusty
 
 MAINTAINER Dmitry Vapelnik <dvapelnik@gmail.com>
+
+ADD sources.list /etc/apt/sources.list
 
 RUN groupadd -g 1000 donkey \
     && \
@@ -19,6 +21,7 @@ RUN groupadd -g 1000 donkey \
         php-apc \
         php5-memcache \
         php5-memcached \
+        php5-mcrypt \
         php-date \
         php-db \
         php-gettext \
@@ -52,7 +55,8 @@ RUN groupadd -g 1000 donkey \
     sed -i 's/IncludeOptional conf\-enabled\/\*\.conf/IncludeOptional conf\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/IncludeOptional sites\-enabled\/\*\.conf/IncludeOptional sites\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php5/apache2/php.ini && \
-    sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini
+    sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini && \
+    php5enmod mcrypt
 
 EXPOSE 80
 
