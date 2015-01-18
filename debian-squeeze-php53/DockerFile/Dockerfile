@@ -1,4 +1,4 @@
-# VERSION                   0.0.1
+# VERSION                   0.2.0
 
 FROM eboraas/apache:squeeze
 
@@ -9,8 +9,6 @@ RUN groupadd -g 1000 donkey \
     useradd -u 1000 -g 1000 -M donkey \
     && \
     apt-get update \
-    && \
-    apt-get install -y memcached \
     && \
     apt-get install -y \
         php5 \
