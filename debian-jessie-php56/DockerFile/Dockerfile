@@ -10,8 +10,6 @@ RUN groupadd -g 1000 donkey \
     && \
     apt-get update \
     && \
-    apt-get install -y memcached \
-    && \
     apt-get install -y \
         php5 \
         php-apc \

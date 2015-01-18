@@ -1,4 +1,4 @@
-# VERSION                   0.1.0
+# VERSION                   0.2.0
 
 FROM ubuntu-debootstrap:trusty
 
@@ -11,8 +11,6 @@ RUN groupadd -g 1000 donkey \
     useradd -u 1000 -g 1000 -M donkey \
     && \
     apt-get update \
-    && \
-    apt-get install -y memcached \
     && \
     apt-get install -y apache2 \
     && \
@@ -61,6 +59,5 @@ RUN groupadd -g 1000 donkey \
 EXPOSE 80
 
 ADD 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
-ADD start /start
 
-CMD ["/bin/bash", "/start"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
