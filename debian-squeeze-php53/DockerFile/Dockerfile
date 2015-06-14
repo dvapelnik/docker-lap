@@ -35,48 +35,6 @@ RUN groupadd -g 1000 donkey \
         php5-xmlrpc \
         php5-xdebug \
     && \
-    apt-get install -y php5-dev build-essential \
-    && \
-    pecl install xdebug \
-    && \
-    apt-get remove -y \
-        build-essential \
-        bzip2 \
-        dpkg-dev \
-        fakeroot \
-        g++ \
-        g++-4.4 \
-        libalgorithm-diff-perl \
-        libalgorithm-diff-xs-perl \
-        libalgorithm-merge-perl \
-        libdpkg-perl \
-        libstdc++6-4.4-dev \
-        libtimedate-perl \
-        make \
-        patch \
-        autoconf \
-        automake \
-        autotools-dev \
-        binutils \
-        cpp \
-        cpp-4.4 \
-        gcc \
-        gcc-4.4 \
-        libc-dev-bin \
-        libc6-dev \
-        libgmp3c2 \
-        libltdl-dev \
-        libmpfr4 \
-        libssl-dev \
-        libtool \
-        linux-libc-dev \
-        m4 \
-        manpages \
-        manpages-dev \
-        php5-dev \
-        shtool \
-        zlib1g-dev\
-    && \
     apt-get autoremove -y && apt-get clean \
     && \
     ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
