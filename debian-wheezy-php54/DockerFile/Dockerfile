@@ -11,6 +11,7 @@ RUN groupadd -g 1000 donkey \
     apt-get update \
     && \
     apt-get install -y \
+        git \
         php5 \
         php-apc \
         php5-memcache \
