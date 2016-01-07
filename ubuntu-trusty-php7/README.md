@@ -1,0 +1,36 @@
+#Readme
+
+This is Docker Ubuntu based image for web development with php5.5.9
+
+##Usage
+
+Check your nonprivileged for regular developing user and group id before image building 
+
+```bash
+# check user id
+id -u
+# check group id
+id -g
+```
+
+If user id and group id not equivalent 1000 then you must change this value in Dockerfile:
+
+```bash
+sed -i "s/-g 1000/-g `id -g`/g" Dockerfile
+ser -i "s/-u 1000/-u `id -u`/g" Dockerfile
+```
+
+Build image firstly
+
+```bash
+sudo docker build --rm -t `whoami`/ubuntu:trusty.php55 .
+```
+
+Start your container with share local folder
+
+```bash
+echo "<?php phpinfo(); ?>" > /tmp/index.php
+sudo docker run -d --name web -p 80:80 -v /tmp/index.php:/var/www/index.php jdoe/ubuntu:trusty.php55
+```
+
+And browse: [http://localhost/index.php](http://localhost/index.php). You must see phpinfo() as result.#ReadMe
