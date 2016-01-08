@@ -18,6 +18,7 @@ RUN groupadd -g 1000 donkey && \
         sudo \
         git \
         wget \
+        build-essential \
         php7.0-common \
         libapache2-mod-php7.0 \
         php7.0-cli \
