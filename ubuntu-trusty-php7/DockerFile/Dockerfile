@@ -15,6 +15,7 @@ RUN groupadd -g 1000 donkey && \
     apt-get update && \
     apt-get install -y \
         apache2 \
+        sudo \
         git \
         wget \
         php7.0-common \
@@ -61,6 +62,7 @@ RUN groupadd -g 1000 donkey && \
     sed -i 's/IncludeOptional sites\-enabled\/\*\.conf/IncludeOptional sites\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php/7.0/apache2/php.ini && \
     sed -i 's/expose_php = On/expose_php = Off/' /etc/php/7.0/apache2/php.ini && \
+    sed -i 's/;date.timezone\s=/date.timezone = Europe\/Kiev/' /etc/php/7.0/apache2/php.ini && \
     phpenmod mcrypt
 
 EXPOSE 80

@@ -16,6 +16,7 @@ RUN groupadd -g 1000 donkey \
     && \
     apt-get install -y \
         git \
+        sudo \
         php5 \
         php-apc \
         php5-memcache \
@@ -42,6 +43,8 @@ RUN groupadd -g 1000 donkey \
         php5-xdebug \
     && \
     apt-get autoremove -y && apt-get clean \
+    && \
+    rm -f /etc/php5/cli/conf.d/*-xdebug.ini \
     && \
     ln -sf ../mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
     ln -sf ../sites-available/000-default.conf /etc/apache2/sites-enabled/000-default && \

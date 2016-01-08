@@ -12,6 +12,7 @@ RUN groupadd -g 1000 donkey \
     && \
     apt-get install -y \
         git \
+        sudo \
         php5 \
         php-apc \
         php5-memcache \
@@ -39,6 +40,10 @@ RUN groupadd -g 1000 donkey \
     apt-get autoremove -y && apt-get clean \
     && \
     ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
+    && \
+    rm -f /etc/php5/conf.d/suhosin.ini \
+    && \
+    cat /etc/php5/conf.d/xdebug.ini >> /etc/php5/apache2/php.ini && rm -f /etc/php5/conf.d/xdebug.ini \
     && \
     sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=donkey/' /etc/apache2/envvars && \
     sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=donkey/' /etc/apache2/envvars && \

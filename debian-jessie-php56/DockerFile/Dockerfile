@@ -11,6 +11,7 @@ RUN groupadd -g 1000 donkey \
     apt-get update \
     && \
     apt-get install -y \
+        sudo \
         git \
         php5 \
         php-apc \
@@ -35,6 +36,8 @@ RUN groupadd -g 1000 donkey \
         php5-mcrypt \
         php5-xmlrpc \
         php5-xdebug \
+    && \
+    rm -f /etc/php5/cli/conf.d/*-xdebug.ini \
     && \
     apt-get autoremove -y && apt-get clean \
     && \
