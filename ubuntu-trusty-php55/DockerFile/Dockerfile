@@ -64,4 +64,8 @@ EXPOSE 80
 
 ADD 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
 
+USER donkey
+
+WORKDIR /var/www
+
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

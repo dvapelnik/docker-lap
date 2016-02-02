@@ -100,4 +100,8 @@ RUN groupadd -g 1000 donkey \
 ADD 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
 ADD start /start
 
+USER donkey
+
+WORKDIR /var/www
+
 CMD ["/bin/bash", "/start"]
