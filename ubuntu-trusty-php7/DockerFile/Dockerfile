@@ -15,7 +15,6 @@ RUN groupadd -g 1000 donkey && \
     apt-get update && \
     apt-get install -y \
         apache2 \
-        sudo \
         git \
         wget \
         build-essential \

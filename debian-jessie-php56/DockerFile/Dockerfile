@@ -11,7 +11,6 @@ RUN groupadd -g 1000 donkey \
     apt-get update \
     && \
     apt-get install -y \
-        sudo \
         git \
         php5 \
         php-apc \
