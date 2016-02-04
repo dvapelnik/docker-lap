@@ -14,6 +14,7 @@ RUN groupadd -g 1000 donkey && \
     add-apt-repository -y ppa:ondrej/php-7.0 && \
     apt-get update && \
     apt-get install -y \
+        sudo \
         apache2 \
         git \
         wget \

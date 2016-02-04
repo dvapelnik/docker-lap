@@ -8,6 +8,7 @@ RUN groupadd -g 1000 donkey && \
     useradd -u 1000 -g 1000 -G sudo donkey && \
     apt-get update && \
     apt-get install -y \
+        sudo \
         git \
         curl \
         php5 \

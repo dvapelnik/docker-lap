@@ -11,6 +11,7 @@ RUN groupadd -g 1000 donkey && \
     apt-get update && \
     apt-get install -y apache2 && \
     apt-get install -y \
+        sudo \
         git \
         curl \
         php5 \
