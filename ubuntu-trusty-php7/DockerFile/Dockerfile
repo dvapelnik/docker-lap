@@ -7,7 +7,7 @@ MAINTAINER Dmitry Vapelnik <dvapelnik@gmail.com>
 ADD sources.list /etc/apt/sources.list
 
 RUN groupadd -g 1000 donkey && \
-    useradd -u 1000 -g 1000 -M donkey && \
+    useradd -u 1000 -g 1000 -G sudo donkey && \
     apt-get update && \
     apt-get install -y python-software-properties software-properties-common && \
     locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
@@ -17,6 +17,7 @@ RUN groupadd -g 1000 donkey && \
         apache2 \
         git \
         wget \
+        curl \
         build-essential \
         php7.0-common \
         libapache2-mod-php7.0 \
@@ -41,7 +42,6 @@ RUN groupadd -g 1000 donkey && \
         php7.0-mysql \
         php7.0-bz2 \
     && \
-    apt-get autoremove -y && apt-get clean && \
     cd /tmp && \
     wget http://xdebug.org/files/xdebug-2.4.0rc2.tgz && \
     tar -xzf xdebug-2.4.0rc2.tgz && \
@@ -63,6 +63,15 @@ RUN groupadd -g 1000 donkey && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php/7.0/apache2/php.ini && \
     sed -i 's/expose_php = On/expose_php = Off/' /etc/php/7.0/apache2/php.ini && \
     sed -i 's/;date.timezone\s=/date.timezone = Europe\/Kiev/' /etc/php/7.0/apache2/php.ini && \
+    echo 'docker ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.6/gosu-$(dpkg --print-architecture)" && \
+    chown root:donkey /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu && \
+    chmod +s /usr/local/bin/gosu && \
+    apt-get purge curl -y && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     phpenmod mcrypt
 
 EXPOSE 80
@@ -73,4 +82,4 @@ USER donkey
 
 WORKDIR /var/www
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/local/bin/gosu", "root", "/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

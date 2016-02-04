@@ -6,16 +6,13 @@ MAINTAINER Dmitry Vapelnik <dvapelnik@gmail.com>
 
 ADD sources.list /etc/apt/sources.list
 
-RUN groupadd -g 1000 donkey \
-    && \
-    useradd -u 1000 -g 1000 -M donkey \
-    && \
-    apt-get update \
-    && \
-    apt-get install -y apache2 \
-    && \
+RUN groupadd -g 1000 donkey && \
+    useradd -u 1000 -g 1000 -G sudo donkey && \
+    apt-get update && \
+    apt-get install -y apache2 && \
     apt-get install -y \
         git \
+        curl \
         php5 \
         php-apc \
         php5-memcache \
@@ -41,14 +38,10 @@ RUN groupadd -g 1000 donkey \
         php5-xmlrpc \
         php5-xdebug \
     && \
-    apt-get autoremove -y && apt-get clean \
-    && \
-    rm -f /etc/php5/cli/conf.d/*-xdebug.ini \
-    && \
+    rm -f /etc/php5/cli/conf.d/*-xdebug.ini && \
     ln -sf ../mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
     ln -sf ../sites-available/000-default.conf /etc/apache2/sites-enabled/000-default && \
-    rm -f /etc/apache2/sites-enabled/000-default.conf \
-    && \
+    rm -f /etc/apache2/sites-enabled/000-default.conf && \
     rm -rf /var/www/html && \
     sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=donkey/' /etc/apache2/envvars && \
     sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=donkey/' /etc/apache2/envvars && \
@@ -57,6 +50,14 @@ RUN groupadd -g 1000 donkey \
     sed -i 's/IncludeOptional sites\-enabled\/\*\.conf/IncludeOptional sites\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php5/apache2/php.ini && \
     sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini && \
+    curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.6/gosu-$(dpkg --print-architecture)" && \
+    chown root:donkey /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu && \
+    chmod +s /usr/local/bin/gosu && \
+    apt-get purge curl -y && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     php5enmod mcrypt
 
 EXPOSE 80
@@ -67,4 +68,4 @@ USER donkey
 
 WORKDIR /var/www
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/local/bin/gosu", "root", "/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
