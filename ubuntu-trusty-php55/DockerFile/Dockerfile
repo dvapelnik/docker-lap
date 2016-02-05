@@ -51,6 +51,7 @@ RUN groupadd -g 1000 donkey && \
     sed -i 's/IncludeOptional sites\-enabled\/\*\.conf/IncludeOptional sites\-enabled\/\*/' /etc/apache2/apache2.conf && \
     sed -i 's/implicit_flush = Off/implicit_flush = On/' /etc/php5/apache2/php.ini && \
     sed -i 's/expose_php = On/expose_php = Off/' /etc/php5/apache2/php.ini && \
+    echo 'donkey ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.6/gosu-$(dpkg --print-architecture)" && \
     chown root:donkey /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
