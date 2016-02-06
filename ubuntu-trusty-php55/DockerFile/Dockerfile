@@ -11,33 +11,33 @@ RUN groupadd -g 1000 donkey && \
     apt-get update && \
     apt-get install -y apache2 && \
     apt-get install -y \
-        sudo \
-        git \
         curl \
-        php5 \
+        git \
         php-apc \
-        php5-memcache \
-        php5-memcached \
-        php5-mcrypt \
         php-date \
         php-db \
         php-gettext \
-        php5-imagick \
         php-services-json \
         php-soap \
         php-xajax \
+        php5 \
         php5-cli \
         php5-common \
         php5-curl \
         php5-gd \
+        php5-imagick \
         php5-intl \
         php5-ldap \
+        php5-mcrypt \
+        php5-mcrypt \
+        php5-memcache \
+        php5-memcached \
         php5-mysql \
         php5-pgsql \
         php5-sqlite \
-        php5-mcrypt \
-        php5-xmlrpc \
         php5-xdebug \
+        php5-xmlrpc \
+        sudo \
     && \
     rm -f /etc/php5/cli/conf.d/*-xdebug.ini && \
     ln -sf ../mods-available/rewrite.load /etc/apache2/mods-enabled/ && \

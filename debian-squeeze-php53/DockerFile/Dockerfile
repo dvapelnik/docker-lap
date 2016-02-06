@@ -8,32 +8,32 @@ RUN groupadd -g 1000 donkey && \
     useradd -u 1000 -g 1000 -G sudo donkey && \
     apt-get update && \
     apt-get install -y \
-        sudo \
         curl \
         git \
-        php5 \
         php-apc \
-        php5-memcache \
-        php5-memcached \
         php-date \
         php-db \
         php-gettext \
-        php5-imagick \
         php-services-json \
         php-soap \
         php-xajax \
+        php5 \
         php5-cli \
         php5-common \
         php5-curl \
         php5-gd \
+        php5-imagick \
         php5-intl \
         php5-ldap \
+        php5-mcrypt \
+        php5-memcache \
+        php5-memcached \
         php5-mysql \
         php5-pgsql \
         php5-sqlite \
-        php5-mcrypt \
-        php5-xmlrpc \
         php5-xdebug \
+        php5-xmlrpc \
+        sudo \
     && \
     ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
     rm -f /etc/php5/conf.d/suhosin.ini && \

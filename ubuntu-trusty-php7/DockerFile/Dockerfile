@@ -14,34 +14,34 @@ RUN groupadd -g 1000 donkey && \
     add-apt-repository -y ppa:ondrej/php-7.0 && \
     apt-get update && \
     apt-get install -y \
-        sudo \
         apache2 \
-        git \
-        wget \
-        curl \
         build-essential \
-        php7.0-common \
+        curl \
+        git \
         libapache2-mod-php7.0 \
-        php7.0-cli \
         libphp7.0-embed \
-        php7.0-dev \
+        php7.0 \
+        php7.0-bz2 \
+        php7.0-cli \
+        php7.0-common \
         php7.0-curl \
+        php7.0-dev \
         php7.0-enchant \
         php7.0-gd \
         php7.0-intl \
+        php7.0-json \
         php7.0-mcrypt \
-        php7.0-readline \
+        php7.0-mysql \
         php7.0-odbc \
         php7.0-pgsql \
+        php7.0-readline \
         php7.0-recode \
+        php7.0-sqlite3 \
         php7.0-tidy \
         php7.0-xmlrpc \
         php7.0-xsl \
-        php7.0 \
-        php7.0-json \
-        php7.0-sqlite3 \
-        php7.0-mysql \
-        php7.0-bz2 \
+        sudo \
+        wget \
     && \
     cd /tmp && \
     wget http://xdebug.org/files/xdebug-2.4.0rc2.tgz && \
@@ -69,7 +69,10 @@ RUN groupadd -g 1000 donkey && \
     chown root:donkey /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     chmod +s /usr/local/bin/gosu && \
-    apt-get purge curl -y && \
+    apt-get purge -y \
+        curl \
+        wget \
+    && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
