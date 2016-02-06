@@ -59,8 +59,8 @@ RUN groupadd -g 1000 donkey && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ADD xdebug.addition.ini /etc/php5/apache2/conf.d/xdebug.addition.ini
-ADD start /start
+COPY xdebug.addition.ini /etc/php5/apache2/conf.d/xdebug.addition.ini
+COPY start /start
 
 USER donkey
 

@@ -62,9 +62,7 @@ RUN groupadd -g 1000 donkey && \
     rm -rf /var/lib/apt/lists/* && \
     php5enmod mcrypt
 
-EXPOSE 80
-
-ADD 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
+COPY 30-xdebug.addition.ini /etc/php5/apache2/conf.d/30-xdebug.addition.ini
 
 USER donkey
 
