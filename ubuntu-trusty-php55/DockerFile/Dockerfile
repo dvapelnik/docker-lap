@@ -70,4 +70,6 @@ USER donkey
 
 WORKDIR /var/www
 
+EXPOSE 80
+
 CMD ["/usr/local/bin/gosu", "root", "/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

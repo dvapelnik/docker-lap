@@ -59,4 +59,6 @@ USER donkey
 
 WORKDIR /var/www
 
+EXPOSE 80
+
 CMD ["/usr/local/bin/gosu", "root", "/bin/bash", "/start"]
